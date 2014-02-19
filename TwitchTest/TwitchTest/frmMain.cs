@@ -113,7 +113,7 @@ namespace TwitchTest
         void client_GotMessage(object sender, NetIrc2.Events.ChatMessageEventArgs e)
         {
             string msg = e.Message.ToString().ToLower();
-            if (e.Recipient == twitch_channel)
+            if (e.Recipient == data["tool"]["twitch_channel"])
             {
                 switch (msg)
                 {
@@ -189,7 +189,7 @@ namespace TwitchTest
         /// <param name="e"></param>
         void client_Connected(object sender, EventArgs e)
         {
-            client.Join("#" + twitch_username);
+            client.Join(data["tool"]["twitch_channel"]);
         }
 
         /// <summary>
