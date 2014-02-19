@@ -244,7 +244,7 @@ namespace TwitchTest
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            data["progress"]["date"] = DateTime.UtcNow.ToString();
+            data["progress"]["date"] = StartTime.ToString();
             data["progress"]["sent"] = CmdSent.ToString();
             parser.SaveFile("config.ini", data);
         }
