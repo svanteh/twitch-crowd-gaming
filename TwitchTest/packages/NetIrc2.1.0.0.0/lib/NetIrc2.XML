@@ -1,0 +1,1467 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetIrc2</name>
+    </assembly>
+    <members>
+        <member name="T:NetIrc2.Events.NameListEndEventArgs">
+            <summary>
+            Marks the end of a channel's name list.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.NameListEndEventArgs.#ctor(NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.NameListEndEventArgs"/>.
+            </summary>
+            <param name="channel">The channel the name list has been sent for.</param>
+        </member>
+        <member name="P:NetIrc2.Events.NameListEndEventArgs.Channel">
+            <summary>
+            The channel the name list has been sent for.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.ChannelTopicChangeEventArgs">
+            <summary>
+            Stores a change in a channel's topic.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.ChannelTopicChangeEventArgs.#ctor(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.ChannelTopicChangeEventArgs"/>.
+            </summary>
+            <param name="channel">The channel name.</param>
+            <param name="newTopic">The new channel topic.</param>
+        </member>
+        <member name="P:NetIrc2.Events.ChannelTopicChangeEventArgs.Channel">
+            <summary>
+            The channel name.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.ChannelTopicChangeEventArgs.NewTopic">
+            <summary>
+            The new channel topic.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.ChatMessageEventArgs">
+            <summary>
+            Stores a complete chat message.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.TargetedMessageEventArgs">
+            <summary>
+            Stores a sender and recipient for a targeted action.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.TargetedMessageEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.TargetedMessageEventArgs"/>.
+            </summary>
+            <param name="sender">The sender, or <c>null</c> if the message has no sender.</param>
+            <param name="recipient">The recipient.</param>
+        </member>
+        <member name="P:NetIrc2.Events.TargetedMessageEventArgs.Sender">
+            <summary>
+            The sender.
+            
+            Be aware that some messages may not have a sender, such as NOTICEs from
+            the server at connect time. In this case the sender will be <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.TargetedMessageEventArgs.Recipient">
+            <summary>
+            The recipient.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.ChatMessageEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Creates an instance of <see cref="T:NetIrc2.Events.ChatMessageEventArgs"/>.
+            </summary>
+            <param name="sender">The sender, or <c>null</c> if the message has no sender.</param>
+            <param name="recipient">The recipient.</param>
+            <param name="message">The chat message.</param>
+        </member>
+        <member name="P:NetIrc2.Events.ChatMessageEventArgs.Message">
+            <summary>
+            The chat message.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.IrcClient">
+            <summary>
+            Communicates with an Internet Relay Chat server.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcClient.#ctor">
+            <summary>
+            Creates a new IRC client.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Connect(System.String,System.Int32,NetIrc2.IrcClientConnectionOptions)">
+            <summary>
+            Connects to an IRC server.
+            </summary>
+            <param name="hostname">The server hostname.</param>
+            <param name="port">The server port.</param>
+            <param name="options">Options for the connection, if any, or <c>null</c>.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Connect(System.Net.IPEndPoint,NetIrc2.IrcClientConnectionOptions)">
+            <summary>
+            Connects to an IRC server specified by an endpoint.
+            </summary>
+            <param name="endPoint">The IP endpoint to connect to.</param>
+            <param name="options">Options for the connection, if any, or <c>null</c>.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Connect(System.IO.Stream,NetIrc2.IrcClientConnectionOptions)">
+            <summary>
+            Connects to an IRC server specified by a stream.
+            </summary>
+            <param name="stream">The stream.</param>
+            <param name="options">Options for the connection, if any, or <c>null</c>.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.CtcpCommand(NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString[],System.Boolean)">
+            <summary>
+            Sends a CTCP command to the specified user or channel.
+            </summary>
+            <param name="recipient">The user or channel to send the command to.</param>
+            <param name="command">The CTCP command.</param>
+            <param name="parameters">The CTCP command parameters.</param>
+            <param name="escapeParameters">
+                <c>true</c> to quote parameters with spaces in them, and escape backslashes and quotation marks.
+            </param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.CtcpReply(NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString[],System.Boolean)">
+            <summary>
+            Replies to a CTCP command from a user or channel.
+            </summary>
+            <param name="recipient">The user or channel to send the reply to.</param>
+            <param name="command">The CTCP command.</param>
+            <param name="parameters">The CTCP command reply parameters.</param>
+            <param name="escapeParameters">
+                <c>true</c> to quote parameters with spaces in them, and escape backslashes and quotation marks.
+            </param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.DccCommand(NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Sends a DCC command to the specified user or channel.
+            </summary>
+            <param name="recipient">The user or channel to send the command to.</param>
+            <param name="command">The DCC command.</param>
+            <param name="parameters">The DCC command parameters.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.IrcCommand(NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Constructs and sends an IRC command to the server.
+            </summary>
+            <param name="command">The command to send.</param>
+            <param name="parameters">The command's parameters.</param>
+            <returns><c>true</c> if the command was sent successfully.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcClient.IrcCommand(NetIrc2.Parsing.IrcStatement)">
+            <summary>
+            Sends a premade IRC statement to the server.
+            </summary>
+            <param name="statement">The statement to send.</param>
+            <returns><c>true</c> if the statement was sent successfully.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Close">
+            <summary>
+            Closes the network connection.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcClient.LogIn(NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Logs in to the server.
+            </summary>
+            <param name="username">A username. If you aren't using a password, this can be anything you want.</param>
+            <param name="realname">Your real name, or some made up name.</param>
+            <param name="nickname">The IRC nickname to use.</param>
+            <param name="hostname">The hostname to send, or <c>null</c> to send a default value.</param>
+            <param name="servername">The servername to send, or <c>null</c> to send a default value.</param>
+            <param name="password">The connection password, or <c>null</c> to not use one.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.ChangeChannelTopic(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Changes the channel topic.
+            </summary>
+            <param name="channel">The channel whose topic to change.</param>
+            <param name="newTopic">The new channel topic.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.ChangeName(NetIrc2.IrcString)">
+            <summary>
+            Changes the client's nickname.
+            </summary>
+            <param name="newName">The nickname to change to.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.ChatAction(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Sends an action message to the specified user or channel.
+            </summary>
+            <param name="recipient">The user or channel to send the action message to.</param>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Invite(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Invites the specified user to the channel. Channel operator access
+            may be required.
+            </summary>
+            <param name="user">The user to invite.</param>
+            <param name="channel">The channel to invite the user to.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Join(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Joins the specified channel.
+            </summary>
+            <param name="channel">The channel to join.</param>
+            <param name="key">The channel key, or <c>null</c> if a key is unnecessary.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Kick(NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Kicks the specified user from the channel. Channel operator access may be required.
+            </summary>
+            <param name="user">The user to kick.</param>
+            <param name="channel">The channel to kick the user from.</param>
+            <param name="reason">The reason the user was kicked, or <c>null</c> to give no reason.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Leave(NetIrc2.IrcString)">
+            <summary>
+            Leaves the specified channel.
+            </summary>
+            <param name="channel">The channel to leave.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.ListChannels">
+            <summary>
+            Requests a listing of available channels on the server.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Message(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Sends a message to the specified user or channel.
+            </summary>
+            <param name="recipient">The user or channel to send the message to.</param>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Mode(NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Changes a channel or user's mode.
+            </summary>
+            <param name="target">The channel or user to change the mode of.</param>
+            <param name="command">The mode change, for example +o or +v.</param>
+            <param name="parameters">The mode change parameters.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Notice(NetIrc2.IrcString,System.String)">
+            <summary>
+            Sends a notice to the specified user.
+            </summary>
+            <param name="recipient">The user to send the notice to.</param>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.Ping(NetIrc2.IrcString)">
+            <summary>
+            Pings the specified user.
+            </summary>
+            <param name="userToPing">The user to ping.</param>
+        </member>
+        <member name="M:NetIrc2.IrcClient.LogOut(System.String)">
+            <summary>
+            Logs out from the server.
+            </summary>
+            <param name="quitMessage">The quit message, or <c>null</c>.</param>
+        </member>
+        <member name="P:NetIrc2.IrcClient.ClientVersion">
+            <summary>
+            The client version. This will be sent in reply to a CTCP VERSION query.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcClient.IsConnected">
+            <summary>
+            Whether the client is connected to a server.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcClient.SyncRoot">
+            <summary>
+            The synchronization object for sending IRC commands.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.Connected">
+            <summary>
+            Called when a connection is established.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.Closed">
+            <summary>
+            Called when the connection is terminated.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotChannelListBegin">
+            <summary>
+            Called when the server has begun sending the channel list.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotChannelListEntry">
+            <summary>
+            Called for each entry of the channel list.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotChannelListEnd">
+            <summary>
+            Called when the server has finished sending the channel list.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotChannelTopicChange">
+            <summary>
+            Called when a channel's topic changes.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotChatAction">
+            <summary>
+            Called when someone sends a chat action message.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotInvitation">
+            <summary>
+            Called when the client receives an invitation to join a channel.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotIrcError">
+            <summary>
+            Called when an error occurs.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotJoinChannel">
+            <summary>
+            Called when someone joins a channel.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotLeaveChannel">
+            <summary>
+            Called when someone leaves a channel.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotMessage">
+            <summary>
+            Called when someone sends a message.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotMode">
+            <summary>
+            Called when a channel or user's mode is changed.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotMotdBegin">
+            <summary>
+            Called when the server has begun sending the Message of the Day.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotMotdText">
+            <summary>
+            Called for each line of the Message of the Day sent by the server.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotMotdEnd">
+            <summary>
+            Called when the server has finished sending the Message of the Day.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotNameChange">
+            <summary>
+            Called when someone changes their name.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotNameListReply">
+            <summary>
+            Called when the server is sending a channel's user list.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotNameListEnd">
+            <summary>
+            Called at the completion of a channel's user list.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotNotice">
+            <summary>
+            Called when someone sends a notice. Notices differ from
+            ordinary messages in that, by convention, one should not
+            send an automated reply in response (such as 'I am away
+            from the keyboard.').
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotPingReply">
+            <summary>
+            Called on a user's reply to a ping.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotUserKicked">
+            <summary>
+            Called when a user is kicked from a channel.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotUserQuit">
+            <summary>
+            Called when a user disconnects from the server.
+            </summary>
+        </member>
+        <member name="E:NetIrc2.IrcClient.GotWelcomeMessage">
+            <summary>
+            Called when the server sends the welcome message.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.SimpleMessageEventArgs">
+            <summary>
+            Stores a one-line message.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.SimpleMessageEventArgs.#ctor(NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.SimpleMessageEventArgs"/>.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="P:NetIrc2.Events.SimpleMessageEventArgs.Message">
+            <summary>
+            The message.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.JoinLeaveEventArgs">
+            <summary>
+            Stores information about a user joining or leaving a channel.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.JoinLeaveEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString[])">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.JoinLeaveEventArgs"/>.
+            </summary>
+            <param name="identity">The user who joined or left the channel(s).</param>
+            <param name="channels">The list of channels joined or left.</param>
+        </member>
+        <member name="M:NetIrc2.Events.JoinLeaveEventArgs.GetChannelList">
+            <summary>
+            Gets the list of channels joined or left.
+            </summary>
+            <returns>An array of channel names.</returns>
+        </member>
+        <member name="P:NetIrc2.Events.JoinLeaveEventArgs.Identity">
+            <summary>
+            The user who joined or left the channel(s).
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.NameChangeEventArgs">
+            <summary>
+            Stores information about a name change.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.NameChangeEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.NameChangeEventArgs"/>.
+            </summary>
+            <param name="identity">The user who is changing their nickname.</param>
+            <param name="newName">The new nickname.</param>
+        </member>
+        <member name="P:NetIrc2.Events.NameChangeEventArgs.Identity">
+            <summary>
+            The user who is changing their nickname.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.NameChangeEventArgs.NewName">
+            <summary>
+            The new nickname.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Parsing.IrcValidation">
+            <summary>
+            Validates various parameter types.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcValidation.IsChannelName(NetIrc2.IrcString)">
+            <summary>
+            Checks if the channel name is valid. The definition used by this test is somewhat loose.
+            
+            Channel names may not contain spaces, commas, NULL, BELL, CR, or LF, and must start with # or &amp;.
+            </summary>
+            <param name="channel">The channel name to test.</param>
+            <returns><c>true</c> if the name is valid.</returns>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcValidation.IsNickname(NetIrc2.IrcString)">
+            <summary>
+            Checks if the nickname is valid. The definition used by this test is somewhat loose.
+            
+            Nicknames may not contain spaces, commas, NULL, BELL, CR, LF, #, &amp;, @, or +.
+            </summary>
+            <param name="nickname">The nickname to test.</param>
+            <returns><c>true</c> if the name is valid.</returns>
+        </member>
+        <member name="T:NetIrc2.Details.IrcStringTypeConverter">
+            <summary>
+            Converts between <see cref="T:NetIrc2.IrcString"/> and <see cref="T:System.String"/>.
+            This class is used by Visual Studio's various Designers.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Details.IrcStringTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.Details.IrcStringTypeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.Details.IrcStringTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.Details.IrcStringTypeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="T:NetIrc2.IdentServer">
+            <summary>
+            Answers requests using the Ident protocol (RFC 1413).
+            Many IRC servers try to connect to a client's Ident server.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IdentServer.Start(System.Int32)">
+            <summary>
+            Starts the Ident server.
+            </summary>
+            <param name="port">The port to listen on. The standard port is 113.</param>
+        </member>
+        <member name="M:NetIrc2.IdentServer.Start(System.Net.IPEndPoint)">
+            <summary>
+            Starts the Ident server, listening on the specified endpoint.
+            </summary>
+            <param name="endPoint">The endpoint to listen on.</param>
+        </member>
+        <member name="M:NetIrc2.IdentServer.Stop">
+            <summary>
+            Stops the Ident server and disconnects all connected clients.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IdentServer.OperatingSystem">
+            <summary>
+            The name of the operating system running on the computer.
+            
+            By default, WIN32 will be used on Windows, and UNIX will be used elsewhere.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IdentServer.UserID">
+            <summary>
+            The Ident user ID to reply with.
+            
+            Set this to match the IRC username.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.InvitationEventArgs">
+            <summary>
+            Stores information about a channel invitation.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.InvitationEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.InvitationEventArgs"/>.
+            </summary>
+            <param name="sender">The sender of the invitation.</param>
+            <param name="recipient">The recipient of the invitation.</param>
+            <param name="channel">The channel the invitation is for.</param>
+        </member>
+        <member name="P:NetIrc2.Events.InvitationEventArgs.Channel">
+            <summary>
+            The channel the invitation is for.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.KickEventArgs">
+            <summary>
+            Stores information about a user being kicked from a channel.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.KickEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.KickEventArgs"/>.
+            </summary>
+            <param name="sender">The user doing the kicking.</param>
+            <param name="recipient">The user being kicked out of the channel.</param>
+            <param name="channel">The channel the user is being kicked from.</param>
+            <param name="reason">The reason the user is being kicked, or <c>null</c> if none is given.</param>
+        </member>
+        <member name="P:NetIrc2.Events.KickEventArgs.Channel">
+            <summary>
+            The channel the user is being kicked from.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.KickEventArgs.Reason">
+            <summary>
+            The reason the user is being kicked, or <c>null</c> if none is given.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Parsing.IrcStatement">
+            <summary>
+            Reads and writes raw IRC statement lines.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.#ctor">
+            <summary>
+            Creates an IRC statement with nothing set.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Creates an IRC statement.
+            </summary>
+            <param name="source">The source of the statement, if any. This is called the prefix in the IRC specification.</param>
+            <param name="command">The command or three-digit reply code.</param>
+            <param name="parameters">The parameters of the command.</param>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.TryParse(System.Byte[],System.Int32@,System.Int32,NetIrc2.Parsing.IrcStatement@)">
+            <summary>
+            Tries to read a buffer and parse out an IRC statement. 
+            </summary>
+            <param name="buffer">The buffer to read from.</param>
+            <param name="offset">The offset to begin reading. The parser may advance this, even if parsing fails.</param>
+            <param name="count">The maximum number of bytes to read.</param>
+            <param name="statement">The statement, if parsing succeeds, or <c>null</c>.</param>
+            <returns><c>true</c> if parsing succeeded.</returns>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.TryParse(System.Byte[],System.Int32@,System.Int32,NetIrc2.Parsing.IrcStatement@,NetIrc2.Parsing.IrcStatementParseResult@)">
+            <summary>
+            Tries to read a buffer and parse out an IRC statement. 
+            Additionally, on failure, the reason for failure is returned.
+            </summary>
+            <param name="buffer">The buffer to read from.</param>
+            <param name="offset">The offset to begin reading. The parser may advance this, even if parsing fails.</param>
+            <param name="count">The maximum number of bytes to read.</param>
+            <param name="statement">The statement, if parsing succeeds, or <c>null</c>.</param>
+            <param name="parseResult">The result of parsing. On failure, this is the reason for the failure.</param>
+            <returns><c>true</c> if parsing succeeded.</returns>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.ToByteArray">
+            <summary>
+            Converts the IRC statement into a byte array, including the ending CR+LF.
+            </summary>
+            <returns>A byte array.</returns>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.ToByteArray(System.Boolean@)">
+            <summary>
+            Converts the IRC statement into a byte array, including the ending CR+LF,
+            and additionally returns whether the string was truncated.
+            </summary>
+            <param name="truncated"><c>true</c> if the string was too long and had to be truncated.</param>
+            <returns>A byte array.</returns>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.ToIrcString">
+            <summary>
+            Converts the IRC statement into an IRC string containing all of its bytes,
+            including the ending CR+LF.
+            </summary>
+            <returns>An IRC string.</returns>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatement.ToIrcString(System.Boolean@)">
+            <summary>
+            Converts the IRC statement into an IRC string containing all of its bytes,
+            including the ending CR+LF, and additionally returns whether the string was truncated.
+            </summary>
+            <param name="truncated"><c>true</c> if the string was too long and had to be truncated.</param>
+            <returns>An IRC string.</returns>
+        </member>
+        <member name="P:NetIrc2.Parsing.IrcStatement.Source">
+            <summary>
+            The source of the statement, if any. This is called the prefix in the IRC specification.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Parsing.IrcStatement.Command">
+            <summary>
+            The command, or if the IRC statement is a reply, a three-digit number.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Parsing.IrcStatement.ReplyCode">
+            <summary>
+            The numeric reply code, if the IRC statement is a reply.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Parsing.IrcStatement.Parameters">
+            <summary>
+            The parameters of the statement.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Parsing.IrcStatementParseResult">
+            <summary>
+            The result of attempting to parse an IRC statement.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.Parsing.IrcStatementParseResult.OK">
+            <summary>
+            Parsing succeeded.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.Parsing.IrcStatementParseResult.NothingToParse">
+            <summary>
+            A full statement has not yet been received.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.Parsing.IrcStatementParseResult.InvalidStatement">
+            <summary>
+            The statement failed validation.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.Parsing.IrcStatementParseResult.StatementTooLong">
+            <summary>
+            Either no statement has been received, or the statement that was received is too long.
+            IRC does not allow more than 510 bytes (plus CR+LF) for a statement.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.Parsing.IrcStatementParseResult.Disconnected">
+            <summary>
+            The connection was lost.
+            
+            <see cref="T:NetIrc2.Parsing.IrcStatement"/> will not return this, but <see cref="T:NetIrc2.Parsing.IrcStatementReceiver"/> may.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.Parsing.IrcStatementParseResult.TimedOut">
+            <summary>
+            The read timed out.
+            
+            <see cref="T:NetIrc2.Parsing.IrcStatement"/> will not return this, but <see cref="T:NetIrc2.Parsing.IrcStatementReceiver"/> may.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.IrcIdentity">
+            <summary>
+            Stores an IRC user's identity information - their nickname, username, and hostname.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.#ctor">
+            <summary>
+            Creates a new (blank) IRC identity.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.TryParse(NetIrc2.IrcString,NetIrc2.IrcIdentity@)">
+            <summary>
+            Tries to parse a string to get an IRC identity.
+            
+            IRC identities are formatted as nickname!username@hostname.
+            </summary>
+            <param name="string">The string to parse.</param>
+            <param name="identity">The identity, or <c>null</c> if parsing fails.</param>
+            <returns><c>true</c> if parsing completed successfully.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.ToIrcString">
+            <summary>
+            Converts an IRC identity into an IRC string.
+            </summary>
+            <returns>The IRC string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.op_Implicit(NetIrc2.IrcIdentity)~NetIrc2.IrcString">
+            <summary>
+            Converts an IRC identity into an IRC string.
+            </summary>
+            <param name="identity">The IRC identity.</param>
+            <returns>The IRC string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.op_Equality(NetIrc2.IrcIdentity,NetIrc2.IrcIdentity)">
+            <summary>
+            Compares two identities for equality.
+            </summary>
+            <param name="identity1">The first identity.</param>
+            <param name="identity2">The second identity.</param>
+            <returns><c>true</c> if the identities are equal.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcIdentity.op_Inequality(NetIrc2.IrcIdentity,NetIrc2.IrcIdentity)">
+            <summary>
+            Compares two identities for inequality.
+            </summary>
+            <param name="identity1">The first identity.</param>
+            <param name="identity2">The second identity.</param>
+            <returns><c>true</c> if the identities are not equal.</returns>
+        </member>
+        <member name="P:NetIrc2.IrcIdentity.Nickname">
+            <summary>
+            The user's IRC nickname (the name shown in channels).
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcIdentity.Username">
+            <summary>
+            The username.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcIdentity.Hostname">
+            <summary>
+            The user's hostname.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.ChannelListEntryEventArgs">
+            <summary>
+            Stores an entry of the channel list.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.ChannelListEntryEventArgs.#ctor(NetIrc2.IrcString,System.Int32,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.ChannelListEntryEventArgs"/>.
+            </summary>
+            <param name="channel">The channel name.</param>
+            <param name="userCount">The number of users in the channel.</param>
+            <param name="topic">The channel topic.</param>
+        </member>
+        <member name="P:NetIrc2.Events.ChannelListEntryEventArgs.Channel">
+            <summary>
+            The channel name.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.ChannelListEntryEventArgs.UserCount">
+            <summary>
+            The number of users in the channel.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.ChannelListEntryEventArgs.Topic">
+            <summary>
+            The channel topic.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.ModeEventArgs">
+            <summary>
+            Stores a mode change.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.ModeEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString,NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.ModeEventArgs"/>.
+            </summary>
+            <param name="sender">The user changing the mode.</param>
+            <param name="recipient">The target of the mode change. This may be a channel or a user.</param>
+            <param name="command">The mode change, for example +o or +v.</param>
+            <param name="parameters">The mode change parameters.</param>
+        </member>
+        <member name="M:NetIrc2.Events.ModeEventArgs.GetParameter(System.Int32)">
+            <summary>
+            Gets a mode change parameter.
+            </summary>
+            <param name="index">The index of the parameter.</param>
+            <returns>A parameter.</returns>
+        </member>
+        <member name="M:NetIrc2.Events.ModeEventArgs.GetParameterList">
+            <summary>
+            Gets all of the mode change parameters.
+            </summary>
+            <returns>An array of parameters.</returns>
+        </member>
+        <member name="P:NetIrc2.Events.ModeEventArgs.Command">
+            <summary>
+            The mode change, for example +o or +v.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.ModeEventArgs.ParameterCount">
+            <summary>
+            The number of parameters.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.PingReplyEventArgs">
+            <summary>
+            Stores the results of an earlier ping request.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.PingReplyEventArgs.#ctor(NetIrc2.IrcIdentity,System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.PingReplyEventArgs"/>.
+            </summary>
+            <param name="identity">The user who is replying to your ping request.</param>
+            <param name="delay">The ping time, in milliseconds.</param>
+        </member>
+        <member name="P:NetIrc2.Events.PingReplyEventArgs.Identity">
+            <summary>
+            The sender of the reply.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.PingReplyEventArgs.Delay">
+            <summary>
+            The ping time, in milliseconds.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.IrcString">
+            <summary>
+            Allows string-style manipulation of arrays of bytes.
+            IRC does not define an encoding, so this provides for encoding-agnostic parsing.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcString.Empty">
+            <summary>
+            A zero-byte string.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.IrcString.#ctor(System.String)">
+            <summary>
+            Creates an IRC string by converting a .NET string using UTF-8 encoding.
+            </summary>
+            <param name="string">The .NET string to convert.</param>
+        </member>
+        <member name="M:NetIrc2.IrcString.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Creates an IRC string by converting a .NET string using the specified encoding.
+            </summary>
+            <param name="string">The .NET string to convert.</param>
+            <param name="encoding">The encoding to use.</param>
+        </member>
+        <member name="M:NetIrc2.IrcString.#ctor(System.Byte[])">
+            <summary>
+            Creates an IRC string from a byte array.
+            </summary>
+            <param name="buffer">The array of bytes.</param>
+        </member>
+        <member name="M:NetIrc2.IrcString.#ctor(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Creates an IRC string from part of a byte array.
+            </summary>
+            <param name="buffer">The array of bytes.</param>
+            <param name="startIndex">The index of the first byte in the new string.</param>
+            <param name="length">The number of bytes in the new string.</param>
+        </member>
+        <member name="M:NetIrc2.IrcString.Contains(System.Byte)">
+            <summary>
+            Checks if the string contains a particular byte.
+            </summary>
+            <param name="value">The byte to look for.</param>
+            <returns><c>true</c> if the string contains the byte.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.CopyTo(System.Byte[],System.Int32)">
+            <summary>
+            Copies the string into a byte array.
+            </summary>
+            <param name="array">The byte array to copy to.</param>
+            <param name="index">The starting index to copy to.</param>
+        </member>
+        <member name="M:NetIrc2.IrcString.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.IrcString.Equals(NetIrc2.IrcString)">
+            <summary>
+            Compares the current string with another string.
+            </summary>
+            <param name="other">The string to compare with.</param>
+            <returns><c>true</c> if the strings are equal.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.IrcString.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:NetIrc2.IrcString.IndexOf(System.Byte)">
+            <summary>
+            Scans the string for the first instance of a particular byte.
+            </summary>
+            <param name="value">The byte to look for.</param>
+            <returns>The index of the first matching byte, or <c>-1</c>.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.IndexOf(System.Byte,System.Int32)">
+            <summary>
+            Scans part of the string for the first instance of a particular byte.
+            </summary>
+            <param name="value">The byte to look for.</param>
+            <param name="startIndex">The first byte to begin scanning at.</param>
+            <returns>The index of the first matching byte, or <c>-1</c>.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.IndexOf(System.Func{System.Byte,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            Scans part of the string for the first byte that matches the specified condition.
+            </summary>
+            <param name="matchCondition">The condition to match.</param>
+            <param name="startIndex">The first byte to begin scanning at.</param>
+            <param name="length">The distance to scan.</param>
+            <returns>The index of the first matching byte, or <c>-1</c>.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.Join(NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Joins together a number of strings.
+            </summary>
+            <param name="separator">The string to separate individual strings with.</param>
+            <param name="strings">The strings to join.</param>
+            <returns>The joined string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.Split(System.Byte)">
+            <summary>
+            Splits the string into a number of substrings based on a separator.
+            </summary>
+            <param name="separator">The byte to separate strings by.</param>
+            <returns>An array of substrings.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.Split(System.Byte,System.Int32)">
+            <summary>
+            Splits the string into a limited number of substrings based on a separator.
+            </summary>
+            <param name="separator">The byte to separate strings by.</param>
+            <param name="count">The maximum number of substrings. The last substring will contain the remaining bytes.</param>
+            <returns>An array of substrings.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.StartsWith(NetIrc2.IrcString)">
+            <summary>
+            Checks if the start of the current string matches the specified string.
+            </summary>
+            <param name="value">The string to match with.</param>
+            <returns><c>true</c> if the current string starts with <paramref name="value"/>.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.Substring(System.Int32)">
+            <summary>
+            Extracts the end of a string.
+            </summary>
+            <param name="startIndex">The index of the first byte in the substring.</param>
+            <returns>The substring.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.Substring(System.Int32,System.Int32)">
+            <summary>
+            Extracts part of a string.
+            </summary>
+            <param name="startIndex">The index of the first byte in the substring.</param>
+            <param name="length">The number of bytes to extract.</param>
+            <returns>The substring.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.ToByteArray">
+            <summary>
+            Gets the bytes that make up the IRC string.
+            </summary>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.ToString">
+            <summary>
+            Converts to a .NET string using UTF-8 encoding.
+            </summary>
+            <returns>The converted string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.ToString(System.Text.Encoding)">
+            <summary>
+            Converts to a .NET string using the specified encoding.
+            </summary>
+            <param name="encoding">The encoding to use in the conversion.</param>
+            <returns>The converted string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Implicit(NetIrc2.IrcString)~System.Byte[]">
+            <summary>
+            Casts the IRC string to a byte array.
+            </summary>
+            <param name="string">The IRC string.</param>
+            <returns>An array of bytes</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Implicit(NetIrc2.IrcString)~System.String">
+            <summary>
+            Casts the IRC string to a .NET string using UTF-8 encoding.
+            </summary>
+            <param name="string">The IRC string.</param>
+            <returns>A .NET string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Implicit(System.Byte[])~NetIrc2.IrcString">
+            <summary>
+            Casts a byte array to an IRC string.
+            </summary>
+            <param name="buffer">The array of bytes.</param>
+            <returns>An IRC string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Implicit(System.String)~NetIrc2.IrcString">
+            <summary>
+            Casts a .NET string to an IRC string using UTF-8 encoding.
+            </summary>
+            <param name="string">The .NET string.</param>
+            <returns>An IRC string.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Equality(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Compares two strings for equality.
+            </summary>
+            <param name="string1">The first string.</param>
+            <param name="string2">The second string.</param>
+            <returns><c>true</c> if the strings are equal.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Inequality(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Compares two strings for inequality.
+            </summary>
+            <param name="string1">The first string.</param>
+            <param name="string2">The second string.</param>
+            <returns><c>true</c> if the strings are not equal.</returns>
+        </member>
+        <member name="M:NetIrc2.IrcString.op_Addition(NetIrc2.IrcString,NetIrc2.IrcString)">
+            <summary>
+            Concatenates two strings.
+            </summary>
+            <param name="string1">The first string.</param>
+            <param name="string2">The second string.</param>
+            <returns>A string that is the concatentaion of the two.</returns>
+        </member>
+        <member name="P:NetIrc2.IrcString.Length">
+            <summary>
+            The length of the IRC string, in bytes.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcString.Item(System.Int32)">
+            <summary>
+            Gets a byte from the IRC string.
+            </summary>
+            <param name="index">The index into the byte array.</param>
+            <returns>The byte at the specified index.</returns>
+        </member>
+        <member name="T:NetIrc2.Events.QuitEventArgs">
+            <summary>
+            Stores information about a user disconnecting from an IRC server.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.QuitEventArgs.#ctor(NetIrc2.IrcIdentity,NetIrc2.IrcString)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.QuitEventArgs"/>.
+            </summary>
+            <param name="identity">The user who disconnected.</param>
+            <param name="quitMessage">The quit message, or <c>null</c> if none was given.</param>
+        </member>
+        <member name="P:NetIrc2.Events.QuitEventArgs.Identity">
+            <summary>
+            The user who disconnected.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.QuitEventArgs.QuitMessage">
+            <summary>
+            The quit message, or <c>null</c> if none was given.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Parsing.IrcStatementReceiver">
+            <summary>
+            Receives IRC statements from a stream.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatementReceiver.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new receiver.
+            </summary>
+            <param name="stream">The stream to read from.</param>
+        </member>
+        <member name="M:NetIrc2.Parsing.IrcStatementReceiver.TryReceive(NetIrc2.Parsing.IrcStatement@,NetIrc2.Parsing.IrcStatementParseResult@)">
+            <summary>
+            Tries to receive an IRC statement.
+            
+            A blocking read is used.
+            If you have a timeout set, <paramref name="parseResult"/> may be <see cref="F:NetIrc2.Parsing.IrcStatementParseResult.TimedOut"/>.
+            </summary>
+            <param name="statement">The statement.</param>
+            <param name="parseResult">The parse result.</param>
+            <returns><c>true</c> if a complete IRC statement was received.</returns>
+        </member>
+        <member name="T:NetIrc2.Events.NameListReplyEventArgs">
+            <summary>
+            Stores a list of names of users in a channel.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.NameListReplyEventArgs.#ctor(NetIrc2.IrcString,NetIrc2.IrcString[])">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.NameListReplyEventArgs"/>.
+            </summary>
+            <param name="channel">The channel this list pertains to.</param>
+            <param name="names">The names of users in the channel.</param>
+        </member>
+        <member name="M:NetIrc2.Events.NameListReplyEventArgs.GetNameList">
+            <summary>
+            Gets the list of names of users in the channel.
+            </summary>
+            <returns>An array of nicknames.</returns>
+        </member>
+        <member name="P:NetIrc2.Events.NameListReplyEventArgs.Channel">
+            <summary>
+            The channel this list pertains to.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.IrcReplyCode">
+            <summary>
+            Many of the common IRC error and reply codes.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoSuchNickname">
+            <summary>
+            States that a nickname you specified does not exist on the server.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoSuchServer">
+            <summary>
+            States that a server you specified could be found.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoSuchChannel">
+            <summary>
+            States that a channel you specified could not be found.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.CannotSendToChannel">
+            <summary>
+            States that you are not allowed to send to a specific channel.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.TooManyChannels">
+            <summary>
+            States that there are already too many channels on the server.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.WasNoSuchNickname">
+            <summary>
+            States that the nickname you asked about never existed.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.TooManyTargets">
+            <summary>
+            States that you specified too many targets for your message.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoOriginSpecified">
+            <summary>
+            States that your ping/pong message did not have an origin parameter.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoRecipientGiven">
+            <summary>
+            States that you did not specify a target for your message.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoTextToSend">
+            <summary>
+            States that there was no text to send.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoTopLevelDomainSpecified">
+            <summary>
+            States that a message could not be delivered, because no top level
+            domain name was specified. In other words, you sent a malformed message.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.WildcardInTopLevelDomain">
+            <summary>
+            States that a message could not be delivered, because there
+            was a wildcard in the top level domain name you specified. In other
+            words, you sent a malformed message.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UnknownCommand">
+            <summary>
+            States that the server does not understand your command.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.MissingMOTD">
+            <summary>
+            States that the server's Message of the Day file is missing.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoAdminInfoAvailable">
+            <summary>
+            States that no administrative information could be found. This only
+            occurs in response to a request for said information.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.FileError">
+            <summary>
+            States that an error occured when transferring a message. This is
+            a fairly generic message, and does not necessarily mean you did
+            anything incorrectly.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NoNicknameGiven">
+            <summary>
+            States that a nickname parameter was expected and was not received.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.ErroneousNickname">
+            <summary>
+            States that the nickname you specified contained invalid characters.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NicknameInUse">
+            <summary>
+            States that the nickname you specified is already in use.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NicknameCollision">
+            <summary>
+            States that the nickname you specified is already in use, but on another
+            server.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.ResourceUnavailable">
+            <summary>
+            States that the nickname or channel is temporarily unavailable.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UserNotInChannel">
+            <summary>
+            States that the user specified for a command pertaining to a specific
+            channel is not in the channel.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NotInChannel">
+            <summary>
+            States that you are not in the channel you are trying to act upon.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UserAlreadyInChannel">
+            <summary>
+            States that the user you invited to a channel is already in said channel.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UserNotLoggedIn">
+            <summary>
+            States that the user specified could not be summoned, because they are
+            not logged in.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.SummonCommandDisabled">
+            <summary>
+            States that summoning is disabled.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UsersCommandDisabled">
+            <summary>
+            States that the 'USERS' command is disabled.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.HaveNotRegistered">
+            <summary>
+            States that you are not registered with the server, and registration
+            is required for an action you attempted.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NotEnoughParameters">
+            <summary>
+            States that an IRC command lacked some parameters.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.AlreadyRegistered">
+            <summary>
+            States that you may not reregister with the server.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UnpriviledgedHost">
+            <summary>
+            States that you may not communicate with the server, because
+            you do not have the appropriate priviledges.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.IncorrectPassword">
+            <summary>
+            States that the password you specified to connect was invalid.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.BannedFromServer">
+            <summary>
+            States that the server has been set up to deny connections
+            to your computer.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.ChannelKeyAlreadySet">
+            <summary>
+            States that the channel key has already been set.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.ChannelIsFull">
+            <summary>
+            States that the requested channel cannot be joined because it is full.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UnknownModeCharacter">
+            <summary>
+            States that a mode character you sent was invalid.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.InviteOnlyChannel">
+            <summary>
+            States that the channel could not be joined because it is invite-only.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.BannedFromChannel">
+            <summary>
+            States that you are banned from the channel.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.BadChannelKey">
+            <summary>
+            States that the channel could not be joined because the specified
+            channel key was incorrect.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.BadChannelName">
+            <summary>
+            States that the channel name contains invalid characters.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NotIRCOperator">
+            <summary>
+            States that the client does not have IRC operator priviledges,
+            which are required for some command that was attempted.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.NotChannelOperator">
+            <summary>
+            States that you are not a channel operator for a channel and
+            tried to do an action that required that.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.CannotKillServer">
+            <summary>
+            States that you may not kill the server.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.HostCannotUseOperCommand">
+            <summary>
+            States that the server is not set up to allow operator
+            commands from your host.
+            </summary>
+        </member>
+        <member name="F:NetIrc2.IrcReplyCode.UnknownModeFlag">
+            <summary>
+            States that a mode change on a nickname included an unknown flag.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.Events.IrcErrorEventArgs">
+            <summary>
+            Stores an error.
+            </summary>
+        </member>
+        <member name="M:NetIrc2.Events.IrcErrorEventArgs.#ctor(NetIrc2.IrcReplyCode,NetIrc2.Parsing.IrcStatement)">
+            <summary>
+            Creates a new instance of <see cref="T:NetIrc2.Events.IrcErrorEventArgs"/>.
+            </summary>
+            <param name="error">The type of error that has occured.</param>
+            <param name="data">The raw IRC statement data. This can be used to garner more information about the error.</param>
+        </member>
+        <member name="P:NetIrc2.Events.IrcErrorEventArgs.Error">
+            <summary>
+            The type of error that has occured.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.Events.IrcErrorEventArgs.Data">
+            <summary>
+            The raw IRC statement data. This can be used to garner more information about the error.
+            </summary>
+        </member>
+        <member name="T:NetIrc2.IrcClientConnectionOptions">
+            <summary>
+            Provides options used by the <see cref="M:NetIrc2.IrcClient.Connect(System.String,System.Int32,NetIrc2.IrcClientConnectionOptions)"/> command.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcClientConnectionOptions.Ssl">
+            <summary>
+            <c>true</c> to use SSL.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcClientConnectionOptions.SslHostname">
+            <summary>
+            The SSL hostname. You must set this if you are using SSL.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcClientConnectionOptions.SslCertificateValidationCallback">
+            <summary>
+            The SSL certificate validation callback.
+            If you are using SSL, the callback is not set, and the SSL certificate is invalid, the connection will fail.
+            This can be used to offer the user an option to connect despite the invalid SSL certificate.
+            </summary>
+        </member>
+        <member name="P:NetIrc2.IrcClientConnectionOptions.SynchronizationContext">
+            <summary>
+            The synchronization context for the connection.
+            If this is <c>null</c>, IRC events will be raised in an arbitrary thread.
+            If this is not <c>null</c>, all IRC events will be posted to the synchronization context.
+            By default, the synchronization context is captured at construction time.
+            
+            What this means: If you create and use the IRC client from a Windows Forms, WPF,
+            or other GUI thread, events will be raised on the same thread and you will not have to worry
+            about multithreading at all.
+            </summary>
+        </member>
+    </members>
+</doc>

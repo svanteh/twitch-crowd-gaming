@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>NetIrc2</id>
+    <version>1.0.0.0</version>
+    <title>NetIrc2</title>
+    <authors>James Bellinger</authors>
+    <owners>James Bellinger</owners>
+    <licenseUrl>http://www.zer7.com/files/oss/netirc2/License.txt</licenseUrl>
+    <projectUrl>http://www.zer7.com/software.php?page=netirc</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>NetIRC2 is an easy-to-use .NET IRC client library. It supports all major features relevant to making a chat client or bot. 
+
+NetIRC2 has full support for synchronization contexts. You can use it from a Windows Forms or WPF GUI thread and chat events will be automatically dispatched, allowing you to completely ignore multithreading. It uses byte arrays internally so mixed encodings can be handled. The IrcClient class can even be used as a component in the Forms Designer. 
+
+Because it speeds up connect times with some IRC servers, an Ident server is included as well.</description>
+    <releaseNotes>1.0.0.0 (May 2, 2013):
+Initial version of NetIRC2.
+This is a substantially redone version of my original NetIRC library.
+If you need sample code, I've ported the Chatter client I wrote ages ago to NetIRC2, so try that...</releaseNotes>
+    <copyright>Copyright 2013 James Bellinger</copyright>
+    <language />
+    <tags>IRC chat client network protocol</tags>
+  </metadata>
+</package>
